@@ -6,22 +6,29 @@
 template<typename T>
 class FrankensteinList {
 private:
-    void PushFront(const T&);
-    void PushBack(const T&);
     void PutInSortedOrder(Node<T>*);
-
+    void clear() noexcept;
 public:
     FrankensteinList();
     FrankensteinList(std::initializer_list<T>);
+    FrankensteinList(const FrankensteinList<T>&);
+    FrankensteinList(FrankensteinList&&);
     ~FrankensteinList();
 
+    FrankensteinList<T>& operator=(const FrankensteinList<T>&);
+    FrankensteinList<T>& operator=(FrankensteinList<T>&&);
+
     void insertAt(const T&, std::size_t);
-
     Node<T>* getNodeAt(std::size_t);
-
+    void push_front(const T&);
+    void pop_front();
+    void push_back(const T&);
+    void pop_back();
+    bool empty() const;
+    T& front();
+    T& back();
     void printSortedAscendingOrder() const;
     void printSortedDescendingOrder() const;
-    void clear() noexcept;
 
     template<typename U>
     friend std::ostream& operator<<(std::ostream&, const FrankensteinList<U>&);

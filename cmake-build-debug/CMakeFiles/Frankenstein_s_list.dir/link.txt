@@ -1,0 +1,1 @@
+/usr/bin/c++ -g CMakeFiles/Frankenstein_s_list.dir/main.cpp.o -o Frankenstein_s_list 
