@@ -1,0 +1,3 @@
+/Users/picsartacademy/CLionProjects/Frankenstein's list/cmake-build-debug/CMakeFiles/Frankenstein_s_list.dir
+/Users/picsartacademy/CLionProjects/Frankenstein's list/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/picsartacademy/CLionProjects/Frankenstein's list/cmake-build-debug/CMakeFiles/rebuild_cache.dir
