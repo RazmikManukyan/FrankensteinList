@@ -45,19 +45,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /snap/clion/249/bin/cmake/linux/x64/bin/cmake
+CMAKE_COMMAND = /private/var/folders/2r/6zrf30s52d5gx55vypqh0czc0000gn/T/AppTranslocation/49129BB3-51A4-46B5-81E8-3DAFCBF5912F/d/CLion.app/Contents/bin/cmake/mac/bin/cmake
 
 # The command to remove a file.
-RM = /snap/clion/249/bin/cmake/linux/x64/bin/cmake -E rm -f
+RM = /private/var/folders/2r/6zrf30s52d5gx55vypqh0czc0000gn/T/AppTranslocation/49129BB3-51A4-46B5-81E8-3DAFCBF5912F/d/CLion.app/Contents/bin/cmake/mac/bin/cmake -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/user/FrankensteinList
+CMAKE_SOURCE_DIR = /Users/picsartacademy/CLionProjects/FrankensteinList
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/user/FrankensteinList/cmake-build-debug
+CMAKE_BINARY_DIR = /Users/picsartacademy/CLionProjects/FrankensteinList/cmake-build-debug
 
 #=============================================================================
 # Directory level rules for the build root directory
@@ -81,14 +81,14 @@ clean: CMakeFiles/Frankenstein_s_list.dir/clean
 CMakeFiles/Frankenstein_s_list.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Frankenstein_s_list.dir/build.make CMakeFiles/Frankenstein_s_list.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Frankenstein_s_list.dir/build.make CMakeFiles/Frankenstein_s_list.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/user/FrankensteinList/cmake-build-debug/CMakeFiles --progress-num=1,2 "Built target Frankenstein_s_list"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/picsartacademy/CLionProjects/FrankensteinList/cmake-build-debug/CMakeFiles --progress-num=1,2 "Built target Frankenstein_s_list"
 .PHONY : CMakeFiles/Frankenstein_s_list.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/Frankenstein_s_list.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/user/FrankensteinList/cmake-build-debug/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/picsartacademy/CLionProjects/FrankensteinList/cmake-build-debug/CMakeFiles 2
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/Frankenstein_s_list.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/user/FrankensteinList/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/picsartacademy/CLionProjects/FrankensteinList/cmake-build-debug/CMakeFiles 0
 .PHONY : CMakeFiles/Frankenstein_s_list.dir/rule
 
 # Convenience name for target.

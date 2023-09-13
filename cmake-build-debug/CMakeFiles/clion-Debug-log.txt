@@ -1,16 +1,16 @@
-/snap/clion/249/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" -S /home/user/FrankensteinList -B /home/user/FrankensteinList/cmake-build-debug
--- The C compiler identification is GNU 11.4.0
--- The CXX compiler identification is GNU 11.4.0
+/private/var/folders/2r/6zrf30s52d5gx55vypqh0czc0000gn/T/AppTranslocation/49129BB3-51A4-46B5-81E8-3DAFCBF5912F/d/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" -S /Users/picsartacademy/CLionProjects/FrankensteinList -B /Users/picsartacademy/CLionProjects/FrankensteinList/cmake-build-debug
+-- The C compiler identification is AppleClang 14.0.0.14000029
+-- The CXX compiler identification is AppleClang 14.0.0.14000029
 -- Detecting C compiler ABI info
 -- Detecting C compiler ABI info - done
--- Check for working C compiler: /usr/bin/cc - skipped
+-- Check for working C compiler: /Library/Developer/CommandLineTools/usr/bin/cc - skipped
 -- Detecting C compile features
 -- Detecting C compile features - done
 -- Detecting CXX compiler ABI info
 -- Detecting CXX compiler ABI info - done
--- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Check for working CXX compiler: /Library/Developer/CommandLineTools/usr/bin/c++ - skipped
 -- Detecting CXX compile features
 -- Detecting CXX compile features - done
--- Configuring done (10.0s)
+-- Configuring done (1.1s)
 -- Generating done (0.0s)
--- Build files have been written to: /home/user/FrankensteinList/cmake-build-debug
+-- Build files have been written to: /Users/picsartacademy/CLionProjects/FrankensteinList/cmake-build-debug

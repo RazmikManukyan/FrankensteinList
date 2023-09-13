@@ -8,93 +8,89 @@
 		<Option virtualFolders="CMake Files\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="/home/user/FrankensteinList/cmake-build-debug"/>
+				<Option working_dir="/Users/picsartacademy/CLionProjects/FrankensteinList/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/gmake -j2 -f &quot;/home/user/FrankensteinList/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="/usr/bin/gmake -j2 -f &quot;/home/user/FrankensteinList/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/gmake -j2 -f &quot;/home/user/FrankensteinList/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/gmake -j2 -f &quot;/home/user/FrankensteinList/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j16 -f &quot;/Users/picsartacademy/CLionProjects/FrankensteinList/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j16 -f &quot;/Users/picsartacademy/CLionProjects/FrankensteinList/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j16 -f &quot;/Users/picsartacademy/CLionProjects/FrankensteinList/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j16 -f &quot;/Users/picsartacademy/CLionProjects/FrankensteinList/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="Frankenstein_s_list">
-				<Option output="/home/user/FrankensteinList/cmake-build-debug/Frankenstein_s_list" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/user/FrankensteinList/cmake-build-debug"/>
+				<Option output="/Users/picsartacademy/CLionProjects/FrankensteinList/cmake-build-debug/Frankenstein_s_list" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/picsartacademy/CLionProjects/FrankensteinList/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="/usr/include/c++/11"/>
-					<Add directory="/usr/include/x86_64-linux-gnu/c++/11"/>
-					<Add directory="/usr/include/c++/11/backward"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/11/include"/>
-					<Add directory="/usr/local/include"/>
-					<Add directory="/usr/include/x86_64-linux-gnu"/>
-					<Add directory="/usr/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/bin/../include/c++/v1"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/lib/clang/14.0.0/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/gmake -j2 -f &quot;/home/user/FrankensteinList/cmake-build-debug/Makefile&quot;  VERBOSE=1 Frankenstein_s_list"/>
-					<CompileFile command="/usr/bin/gmake -j2 -f &quot;/home/user/FrankensteinList/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/gmake -j2 -f &quot;/home/user/FrankensteinList/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/gmake -j2 -f &quot;/home/user/FrankensteinList/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j16 -f &quot;/Users/picsartacademy/CLionProjects/FrankensteinList/cmake-build-debug/Makefile&quot;  VERBOSE=1 Frankenstein_s_list"/>
+					<CompileFile command="/usr/bin/make -j16 -f &quot;/Users/picsartacademy/CLionProjects/FrankensteinList/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j16 -f &quot;/Users/picsartacademy/CLionProjects/FrankensteinList/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j16 -f &quot;/Users/picsartacademy/CLionProjects/FrankensteinList/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="Frankenstein_s_list/fast">
-				<Option output="/home/user/FrankensteinList/cmake-build-debug/Frankenstein_s_list" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/user/FrankensteinList/cmake-build-debug"/>
+				<Option output="/Users/picsartacademy/CLionProjects/FrankensteinList/cmake-build-debug/Frankenstein_s_list" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/picsartacademy/CLionProjects/FrankensteinList/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="/usr/include/c++/11"/>
-					<Add directory="/usr/include/x86_64-linux-gnu/c++/11"/>
-					<Add directory="/usr/include/c++/11/backward"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/11/include"/>
-					<Add directory="/usr/local/include"/>
-					<Add directory="/usr/include/x86_64-linux-gnu"/>
-					<Add directory="/usr/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/bin/../include/c++/v1"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/lib/clang/14.0.0/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/gmake -j2 -f &quot;/home/user/FrankensteinList/cmake-build-debug/Makefile&quot;  VERBOSE=1 Frankenstein_s_list/fast"/>
-					<CompileFile command="/usr/bin/gmake -j2 -f &quot;/home/user/FrankensteinList/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/gmake -j2 -f &quot;/home/user/FrankensteinList/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/gmake -j2 -f &quot;/home/user/FrankensteinList/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j16 -f &quot;/Users/picsartacademy/CLionProjects/FrankensteinList/cmake-build-debug/Makefile&quot;  VERBOSE=1 Frankenstein_s_list/fast"/>
+					<CompileFile command="/usr/bin/make -j16 -f &quot;/Users/picsartacademy/CLionProjects/FrankensteinList/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j16 -f &quot;/Users/picsartacademy/CLionProjects/FrankensteinList/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j16 -f &quot;/Users/picsartacademy/CLionProjects/FrankensteinList/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="/home/user/FrankensteinList/cmake-build-debug"/>
+				<Option working_dir="/Users/picsartacademy/CLionProjects/FrankensteinList/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/gmake -j2 -f &quot;/home/user/FrankensteinList/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="/usr/bin/gmake -j2 -f &quot;/home/user/FrankensteinList/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/gmake -j2 -f &quot;/home/user/FrankensteinList/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/gmake -j2 -f &quot;/home/user/FrankensteinList/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j16 -f &quot;/Users/picsartacademy/CLionProjects/FrankensteinList/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j16 -f &quot;/Users/picsartacademy/CLionProjects/FrankensteinList/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j16 -f &quot;/Users/picsartacademy/CLionProjects/FrankensteinList/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j16 -f &quot;/Users/picsartacademy/CLionProjects/FrankensteinList/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="/home/user/FrankensteinList/cmake-build-debug"/>
+				<Option working_dir="/Users/picsartacademy/CLionProjects/FrankensteinList/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/gmake -j2 -f &quot;/home/user/FrankensteinList/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="/usr/bin/gmake -j2 -f &quot;/home/user/FrankensteinList/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/gmake -j2 -f &quot;/home/user/FrankensteinList/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/gmake -j2 -f &quot;/home/user/FrankensteinList/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j16 -f &quot;/Users/picsartacademy/CLionProjects/FrankensteinList/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j16 -f &quot;/Users/picsartacademy/CLionProjects/FrankensteinList/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j16 -f &quot;/Users/picsartacademy/CLionProjects/FrankensteinList/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j16 -f &quot;/Users/picsartacademy/CLionProjects/FrankensteinList/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/user/FrankensteinList/FrankensteinList.h">
+		<Unit filename="/Users/picsartacademy/CLionProjects/FrankensteinList/FrankensteinList.h">
 			<Option target="Frankenstein_s_list"/>
 		</Unit>
-		<Unit filename="/home/user/FrankensteinList/FrankensteinList.tpp">
+		<Unit filename="/Users/picsartacademy/CLionProjects/FrankensteinList/FrankensteinList.tpp">
 			<Option target="Frankenstein_s_list"/>
 		</Unit>
-		<Unit filename="/home/user/FrankensteinList/Node.h">
+		<Unit filename="/Users/picsartacademy/CLionProjects/FrankensteinList/Node.h">
 			<Option target="Frankenstein_s_list"/>
 		</Unit>
-		<Unit filename="/home/user/FrankensteinList/main.cpp">
+		<Unit filename="/Users/picsartacademy/CLionProjects/FrankensteinList/main.cpp">
 			<Option target="Frankenstein_s_list"/>
 		</Unit>
-		<Unit filename="/home/user/FrankensteinList/CMakeLists.txt">
+		<Unit filename="/Users/picsartacademy/CLionProjects/FrankensteinList/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
 	</Project>
