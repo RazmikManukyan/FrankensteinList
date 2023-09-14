@@ -146,6 +146,10 @@ void FrankensteinList<T>::PutInSortedOrder(Node<T> *node) {
 // Get a pointer to the node at a specified position
 template<typename T>
 Node<T>* FrankensteinList<T>::getNodeAt(std::size_t pos) {
+    if(pos < 0|| pos >= size) {
+        throw std::out_of_range("Position is out of range.");
+    }
+
     std::size_t count = 0;
     Node<T>* curr = head;
     while(count != pos) {
@@ -285,47 +289,324 @@ void FrankensteinList<T>::reverse() {
     if(size <= 1) return;
 
     Node<T>* curr = head;
-    Node<T>* prev = nullptr;
-    Node<T>* next = nullptr;
+    Node<T>* tmp;
 
     // Traverse the list and reverse the links between nodes
     while(curr) {
-        next = curr->next;
-        curr->next = prev;
-        prev = curr;
-        curr = next;
+        tmp = curr->next;
+        curr->next = curr->prev;
+        curr->prev = curr->next;
+        curr = tmp;
     }
 
     // Swap the head and tail pointers
     std::swap(head, tail);
 }
 
+// Function to remove duplicate elements in the list
+template<typename T>
+void FrankensteinList<T>::unique() {
+    if(!asc_head) return;// If the list is empty or already sorted, return
+
+    Node<T>* curr = asc_head;
+    Node<T>* prev = nullptr;
+
+    while(curr) {
+        Node<T>* next = curr->greater;
+
+        // Check if the current node has the same value as the next node
+        if(next && curr->val == next->val) {
+            if(prev) {
+                prev->greater = next;// Connect the previous node to the next node
+                if(next->greater) {
+                    next->greater->lesser = curr;
+                }
+                if(curr == head) {
+                    head = head->next;
+                }
+                if(curr == tail) {
+                    tail = tail->prev;
+                } else if (curr->prev && curr->next) {
+                    curr->prev->next = curr->next;
+                    curr->next->prev = curr->prev;
+                }
+                delete curr;// Delete the current node
+            } else {
+                asc_head = next;
+                next->lesser = nullptr;
+                if(curr == head) {
+                    head = head->next;
+                }
+                if(curr == tail) {
+                    tail = tail->prev;
+                } else if (curr->prev && curr->next) {
+                    curr->prev->next = curr->next;
+                    curr->next->prev = curr->prev;
+                }
+                delete curr;// Delete the current node
+            }
+            curr = next;
+            --size;
+        } else {
+            prev = curr;
+            curr = next;
+        }
+    }
+}
+
+
+// Function to merge another list into this list
+template<typename T>
+void FrankensteinList<T>::merge(const FrankensteinList<T> &oth) {
+    FrankensteinList<T>::ConstIterator it = oth.cbegin();
+    while(it != oth.cend()) {
+        this->push_back(*it);// Push elements from 'oth' into this list
+        ++it;
+    }
+}
+
+// Function to remove all occurrences of a value from the list
+template<typename T>
+void FrankensteinList<T>::remove(const T &val) {
+    Node<T>* curr = asc_head;
+    Node<T>* prev = nullptr;
+
+    while(curr) {
+        if(curr->val == val) {
+            Node<T>* next = curr->greater;
+            if(prev) {
+                prev->greater = next;
+                if(next) {
+                    next->lesser = prev;
+                }
+                if(curr == head) {
+                    head = head->next;
+                } else if(curr == tail) {
+                    tail = tail->prev;
+                } else {
+                    curr->prev->next = curr->next;
+                    curr->next->prev = curr->prev;
+                }
+                delete curr;
+                curr = next;
+                --size;
+            } else {
+                asc_head = next;
+                if(next) {
+                    next->lesser = nullptr;
+                }
+                if(curr == head) {
+                    head = head->next;
+                } else if(curr == tail) {
+                    tail = tail->prev;
+                } else {
+                    curr->prev->next = curr->next;
+                    curr->next->prev = curr->prev;
+                }
+                delete curr;
+                curr = next;
+                --size;
+            }
+        } else {
+            prev = curr;
+            curr = curr->greater;
+        }
+    }
+}
+
+// Function to erase an element at a specific position
+template<typename T>
+void FrankensteinList<T>::erase(const T &pos) {
+    if(pos < 0 || pos >= size) {
+        throw std::out_of_range("Position is out of range.");
+    }
+    if(pos == 0) {
+        pop_front();// Remove the first element
+        return;
+    } else if(pos == size - 1) {
+        pop_back();// Remove the last element
+    } else {
+        Node<T> *curr = getNodeAt(pos);
+        curr->next->prev = curr->prev;
+        curr->prev->next = curr->next;
+        curr->greater->lesser = curr->lesser;
+        curr->lesser->greater = curr->greater;
+        delete curr;// Delete the node at the specified position
+        --size;
+    }
+}
+
+// Function to erase a range of elements starting from a specific position
+template<typename T>
+void FrankensteinList<T>::erase(const T &pos, std::size_t count) {
+    if(pos < 0 || pos > size || pos + count > size) {
+        throw std::out_of_range("Position is out of range.");
+    }
+    if(count == 0) return;
+
+    if(pos == 0) {
+        while(count) {
+            pop_front();// Remove elements from the front
+            --count;
+            --size;
+        }
+    } else if(pos + count == size) {
+        while(count) {
+            pop_back();// Remove elements from the back
+            --count;
+            --size;
+        }
+    } else {
+        Node<T>* start = getNodeAt(pos);
+        Node<T>* end = getNodeAt(pos + count - 1);
+
+        start->prev->next = end->next;
+        end->next->prev = start->prev;
+
+        Node<T>* curr = start;
+        while(curr != end->next) {
+            Node<T>* next = curr->greater;
+            curr->greater->lesser = curr->lesser;
+            curr->lesser->greater = curr->greater;
+            delete curr;// Delete nodes in the specified range
+            curr = next;
+            --size;
+        }
+    }
+}
+
+// Function to sort the list
+template<typename T>
+void FrankensteinList<T>::sort() {
+    if(!head) return;// If the list is empty, return
+
+    head = asc_head;
+    tail = desc_head;
+    Node<T>* curr = head;
+    while(curr) {
+        curr->next = curr->greater;
+        curr->prev = curr->lesser;
+        curr = curr->next;
+    }
+}
+
+template<typename T>
+void FrankensteinList<T>::resize(std::size_t newSize) {
+    if(newSize == size){
+        return;
+    } else if (newSize < size) {
+        int count = size - newSize;
+        while (count) {
+            pop_back();
+            --count;
+        }
+    } else {
+        int count = newSize - size;
+        while (count) {
+            push_back(0); // Default-constructed elements
+            --count;
+        }
+    }
+    size = newSize;
+}
+
+template<typename T>
+void FrankensteinList<T>::emplace_front(std::size_t newSize) {
+    if(newSize == size) return;// If 'newSize' is the same as the current size, no action is needed.
+    if(newSize > size) {
+        int count = newSize - size;
+        while(count) {
+            push_front(0);// Add elements with value 0 to the front
+            --count;
+        }
+    } else {
+        int count = size - newSize;
+        while(count) {
+            pop_front();// Remove elements from the front
+            --count;
+        }
+    }
+}
+
+template<typename T>
+void FrankensteinList<T>::splice(std::size_t pos, const FrankensteinList<T> &list) {
+    // Iterate through the elements in 'list' using a constant iterator.
+    FrankensteinList<T>::ConstIterator it = list.cbegin();
+    while(it != list.cend()) {
+        // Insert each element from 'list' into the current list at the specified 'pos'.
+        insertAt(*it, pos);
+        // Move to the next element in 'list'.
+        ++it;
+    }
+}
+
+// Assign a specified number of elements with the given value.
+template<typename T>
+void FrankensteinList<T>::assign(std::size_t count, const T& val) {
+    clear();
+    while(count) {
+        push_back(val);
+        --count;
+    }
+}
+
 // Get a pointer to the head of the list
 template<typename T>
-const Node<T>* FrankensteinList<T>::getHead() const {
+Node<T>* FrankensteinList<T>::getHead() const {
     return head;
+}
+
+// Set a pointer to the head of the list
+template<typename T>
+void FrankensteinList<T>::setHead(Node<T>* h) {
+    head = h;
 }
 
 // Get a pointer to the tail of the list
 template<typename T>
-const Node<T>* FrankensteinList<T>::getTail() const {
+Node<T>* FrankensteinList<T>::getTail() const {
     return tail;
 }
+
+// Set a pointer to the tail of the list
+template<typename T>
+void FrankensteinList<T>::setTail(Node<T> *t) {
+    tail = t;
+}
+
 // Get a pointer to the ascending head of the list
 template<typename T>
-const Node<T>* FrankensteinList<T>::getAscHead() const {
+Node<T>* FrankensteinList<T>::getAscHead() const {
     return asc_head;
 }
+// Set a pointer to the ascending head of the list
+template<typename T>
+void FrankensteinList<T>::setAscHead(Node<T> *aH) {
+    asc_head = aH;
+}
+
 // Get a pointer to the descending head of the list
 template<typename T>
-const Node<T>* FrankensteinList<T>::getDescHead() const {
+Node<T>* FrankensteinList<T>::getDescHead() const {
     return desc_head;
+}
+
+// Set a pointer to the descending head of the list
+template<typename T>
+void FrankensteinList<T>::setDescHead(Node<T> *dH) {
+    desc_head = dH;
 }
 
 // Get the current size of the list
 template<typename T>
 int FrankensteinList<T>::getSize() const {
     return size;
+}
+
+// Get the current size of the list
+template<typename T>
+void FrankensteinList<T>::setSize(int s) {
+    size = s;
 }
 
 // Print the list in ascending order
@@ -375,15 +656,18 @@ std::ostream &operator<<(std::ostream &os, const FrankensteinList<T> &list) {
         os << curr->val << " ";
         curr = curr->next;
     }
+    std::cout << std::endl;
     return os;
 }
 
+// Iterator constructor
 template<typename T>
-FrankensteinList<T>::Iterator::Iterator(Node<T> *node)
-    :ptr(node)
+FrankensteinList<T>::Iterator::Iterator(Node<T> *node, IteratorType t)
+    :ptr(node), type(t)
 {
 }
 
+// Dereference operator for Iterator (non-const)
 template<typename T>
 T& FrankensteinList<T>::Iterator::operator*() {
     if(!ptr){
@@ -392,6 +676,7 @@ T& FrankensteinList<T>::Iterator::operator*() {
     return ptr->val;
 }
 
+// Arrow operator for Iterator (non-const)
 template<typename T>
 T* FrankensteinList<T>::Iterator::operator->() {
     if(!ptr) {
@@ -400,12 +685,15 @@ T* FrankensteinList<T>::Iterator::operator->() {
     return &(ptr->val);
 }
 
+// Prefix increment operator for Iterator
 template<typename T>
 typename FrankensteinList<T>::Iterator& FrankensteinList<T>::Iterator::operator++() {
-    ptr = ptr->next;
+    ptr = (type == IteratorType::head) ? ptr->next : ptr->greater;
     return *this;
 }
 
+
+// Postfix increment operator for Iterator
 template<typename T>
 typename FrankensteinList<T>::Iterator FrankensteinList<T>::Iterator::operator++(int) {
     FrankensteinList<T>::Iterator tmp = *this;
@@ -413,42 +701,38 @@ typename FrankensteinList<T>::Iterator FrankensteinList<T>::Iterator::operator++
     return tmp;
 }
 
+// Equality comparison operator for Iterator
 template<typename T>
 bool FrankensteinList<T>::Iterator::operator==(const FrankensteinList<T>::Iterator &oth){
     return ptr == oth.ptr;
 }
 
+// Inequality comparison operator for Iterator
 template<typename T>
 bool FrankensteinList<T>::Iterator::operator!=(const FrankensteinList::Iterator &oth){
     return !(ptr == oth.ptr);
 }
 
+// Iterator begin function
 template<typename T>
-typename FrankensteinList<T>::Iterator FrankensteinList<T>::begin() {
-    return Iterator(head);
+typename FrankensteinList<T>::Iterator FrankensteinList<T>::begin(FrankensteinList<T>::IteratorType type) {
+    return Iterator((type == IteratorType::head) ? head : asc_head, type);
 }
 
+// Iterator end function
 template<typename T>
-typename FrankensteinList<T>::Iterator FrankensteinList<T>::end() {
-    return Iterator(nullptr);
+typename FrankensteinList<T>::Iterator FrankensteinList<T>::end(FrankensteinList<T>::IteratorType type) {
+    return Iterator(nullptr, IteratorType::head);
 }
 
+// ConstIterator constructor
 template<typename T>
-typename FrankensteinList<T>::Iterator FrankensteinList<T>::beginAscending() {
-    return Iterator(asc_head);
-}
-
-template<typename T>
-typename FrankensteinList<T>::Iterator FrankensteinList<T>::endAscending() {
-    return Iterator(desc_head);
-}
-
-template<typename T>
-FrankensteinList<T>::ConstIterator::ConstIterator(const Node<T> *node)
-    :ptr(node)
+FrankensteinList<T>::ConstIterator::ConstIterator(const Node<T> *node, IteratorType t)
+    :ptr(node), type(t)
 {
 }
 
+// Dereference operator for ConstIterator (const)
 template<typename T>
 const T& FrankensteinList<T>::ConstIterator::operator*() const {
     if (!ptr) {
@@ -457,6 +741,7 @@ const T& FrankensteinList<T>::ConstIterator::operator*() const {
     return ptr->val;
 }
 
+// Arrow operator for ConstIterator (const)
 template<typename T>
 const T* FrankensteinList<T>::ConstIterator::operator->() const {
     if (!ptr) {
@@ -465,12 +750,14 @@ const T* FrankensteinList<T>::ConstIterator::operator->() const {
     return &(ptr->val);
 }
 
+// Prefix increment operator for ConstIterator
 template<typename T>
 typename FrankensteinList<T>::ConstIterator &FrankensteinList<T>::ConstIterator::operator++() {
-    ptr = ptr->next;
+    ptr = type == IteratorType::head ? ptr->next : ptr->greater;
     return *this;
 }
 
+// Postfix increment operator for ConstIterator
 template<typename T>
 typename FrankensteinList<T>::ConstIterator FrankensteinList<T>::ConstIterator::operator++(int) {
     FrankensteinList<T>::ConstIterator tmp = *this;
@@ -478,24 +765,28 @@ typename FrankensteinList<T>::ConstIterator FrankensteinList<T>::ConstIterator::
     return tmp;
 }
 
+// Equality comparison operator for ConstIterator
 template<typename T>
 bool FrankensteinList<T>::ConstIterator::operator==(const FrankensteinList<T>::ConstIterator &oth) const {
     return ptr == oth.ptr;
 }
 
+// Inequality comparison operator for ConstIterator
 template<typename T>
 bool FrankensteinList<T>::ConstIterator::operator!=(const FrankensteinList<T>::ConstIterator &oth) const {
     return ptr != oth.ptr;
 }
 
+// ConstIterator begin function
 template<typename T>
-typename FrankensteinList<T>::ConstIterator FrankensteinList<T>::cbegin() const {
-    return ConstIterator(head);
+typename FrankensteinList<T>::ConstIterator FrankensteinList<T>::cbegin(FrankensteinList<T>::IteratorType type) const {
+    return ConstIterator((type == IteratorType::head) ? head : asc_head, type);
 }
 
+// ConstIterator end function
 template<typename T>
-typename FrankensteinList<T>::ConstIterator FrankensteinList<T>::cend() const {
-    return ConstIterator(nullptr);
+typename FrankensteinList<T>::ConstIterator FrankensteinList<T>::cend(FrankensteinList<T>::IteratorType type) const {
+    return ConstIterator(nullptr, type);
 }
 
 // Comparison operators
@@ -506,8 +797,8 @@ bool operator==(const FrankensteinList<T>& first, const FrankensteinList<T>& sec
     if(first.getSize() != second.getSize()) return false;
 
     // Compare the elements in both lists
-    const Node<T>* firstHead = first.getHead();
-    const Node<T>* secondHead = second.getHead();
+    Node<T>* firstHead = first.getHead();
+    Node<T>* secondHead = second.getHead();
 
     while(firstHead && secondHead) {
         if(firstHead->val != secondHead->val) {
@@ -522,18 +813,18 @@ bool operator==(const FrankensteinList<T>& first, const FrankensteinList<T>& sec
 }
 
 // Inequality operator
-//template<typename T>
-//bool operator!=(const FrankensteinList<T>& first, const FrankensteinList<T>& second) {
-//    return !(first == second);
-//}
+template<typename T>
+bool operator!=(const FrankensteinList<T>& first, const FrankensteinList<T>& second) {
+    return !(first == second);
+}
 
 // Less than operator
 template<typename T>
 bool operator<(const FrankensteinList<T>& first, const FrankensteinList<T>& second) {
     if(first.getSize() != second.getSize()) return false;
 
-    const Node<T>* firstHead = first.getHead();
-    const Node<T>* secondHead = second.getHead();
+    Node<T>* firstHead = first.getHead();
+    Node<T>* secondHead = second.getHead();
 
     while(firstHead && secondHead) {
         if(firstHead->val >= secondHead->val) {
@@ -551,8 +842,8 @@ template<typename T>
 bool operator<=(const FrankensteinList<T>& first, const FrankensteinList<T>& second){
     if(first.getSize() != second.getSize()) return false;
 
-    const Node<T>* firstHead = first.getHead();
-    const Node<T>* secondHead = second.getHead();
+    Node<T>* firstHead = first.getHead();
+    Node<T>* secondHead = second.getHead();
 
     while(firstHead && secondHead) {
         if(firstHead->val > secondHead->val) {
@@ -570,8 +861,8 @@ template<typename T>
 bool operator>(const FrankensteinList<T>& first, const FrankensteinList<T>& second){
     if(first.getSize() != second.getSize()) return false;
 
-    const Node<T>* firstHead = first.getHead();
-    const Node<T>* secondHead = second.getHead();
+    Node<T>* firstHead = first.getHead();
+    Node<T>* secondHead = second.getHead();
 
     while(firstHead && secondHead) {
         if(firstHead->val <= secondHead->val) {
@@ -589,8 +880,8 @@ template<typename T>
 bool operator>=(const FrankensteinList<T>& first, const FrankensteinList<T>& second){
     if(first.getSize() != second.getSize()) return false;
 
-    const Node<T>* firstHead = first.getHead();
-    const Node<T>* secondHead = second.getHead();
+    Node<T>* firstHead = first.getHead();
+    Node<T>* secondHead = second.getHead();
 
     while(firstHead && secondHead) {
         if(firstHead->val < secondHead->val) {
@@ -608,9 +899,54 @@ void swap(FrankensteinList<T>& first, FrankensteinList<T>& second) {
     // Swap the members of the first and second objects
     using std::swap;
 
-    std::swap(first.getHead(), first.getHead());
-    std::swap(first.getTail(), second.getTail());
-    std::swap(first.getAscHead(), second.getAscHead());
-    std::swap(first.getDescHead(), second.getDescHead());
-    std::swap(first.getSize(), second.getSize());
+    auto* tmpH = first.getHead();
+    first.setHead(second.getHead());
+    second.setHead(tmpH);
+
+    auto* tmpT = first.getTail();
+    first.setTail(second.getTail());
+    second.setTail(tmpT);
+
+    auto* tmpAH = first.getAscHead();
+    first.setAscHead(second.getAscHead());
+    second.setAscHead(tmpAH);
+
+    auto* tmpDH = first.getDescHead();
+    first.setDescHead(second.getDescHead());
+    second.setDescHead(tmpDH);
+
+    int s = first.getSize();
+    first.setSize(second.getSize());
+    second.setSize(s);
+}
+
+//merge two list in third list
+template<typename T>
+FrankensteinList<T> merge(const FrankensteinList<T>& first, const FrankensteinList<T>& second) {
+    FrankensteinList<T> mergedList;
+
+    typename FrankensteinList<T>::ConstIterator it1 = first.cbegin(FrankensteinList<T>::IteratorType::asc_head);
+    typename FrankensteinList<T>::ConstIterator it2 = second.cbegin(FrankensteinList<T>::IteratorType::asc_head);
+
+    while(it1 != first.cend() && it2 != second.cend()) {
+        if(*it1 < *it2) {
+            mergedList.push_back(*it1);
+            ++it1;
+        } else {
+            mergedList.push_back(*it2);
+            ++it2;
+        }
+    }
+
+    while(it1 != first.cend()) {
+        mergedList.push_back(*it1);
+        ++it1;
+    }
+
+    while(it2 != second.cend()) {
+        mergedList.push_back(*it2);
+        ++it2;
+    }
+
+    return mergedList;
 }
