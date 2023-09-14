@@ -358,11 +358,17 @@ void FrankensteinList<T>::unique() {
 // Function to merge another list into this list
 template<typename T>
 void FrankensteinList<T>::merge(const FrankensteinList<T> &oth) {
-    FrankensteinList<T>::ConstIterator it = oth.cbegin();
-    while(it != oth.cend()) {
-        this->push_back(*it);// Push elements from 'oth' into this list
-        ++it;
+    while(oth.head) {
+        Node<T>* next = oth.head->next;
+        push_back(oth.head->val);
+        delete oth.head;
+        oth.head = next;
     }
+    oth.head = nullptr;
+    oth.tail = nullptr;
+    oth.asc_head = nullptr;
+    oth.desc_head = nullptr;
+    oth.size = 0;
 }
 
 // Function to remove all occurrences of a value from the list
