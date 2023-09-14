@@ -378,8 +378,127 @@ std::ostream &operator<<(std::ostream &os, const FrankensteinList<T> &list) {
     return os;
 }
 
-// Comparison operators
+template<typename T>
+FrankensteinList<T>::Iterator::Iterator(Node<T> *node)
+    :ptr(node)
+{
+}
 
+template<typename T>
+T& FrankensteinList<T>::Iterator::operator*() {
+    if(!ptr){
+        throw std::runtime_error("Iterator is not dereferencable.");
+    }
+    return ptr->val;
+}
+
+template<typename T>
+T* FrankensteinList<T>::Iterator::operator->() {
+    if(!ptr) {
+        throw std::runtime_error("Iterator is not dereferencable.");
+    }
+    return &(ptr->val);
+}
+
+template<typename T>
+typename FrankensteinList<T>::Iterator& FrankensteinList<T>::Iterator::operator++() {
+    ptr = ptr->next;
+    return *this;
+}
+
+template<typename T>
+typename FrankensteinList<T>::Iterator FrankensteinList<T>::Iterator::operator++(int) {
+    FrankensteinList<T>::Iterator tmp = *this;
+    ++(*this);
+    return tmp;
+}
+
+template<typename T>
+bool FrankensteinList<T>::Iterator::operator==(const FrankensteinList<T>::Iterator &oth){
+    return ptr == oth.ptr;
+}
+
+template<typename T>
+bool FrankensteinList<T>::Iterator::operator!=(const FrankensteinList::Iterator &oth){
+    return !(ptr == oth.ptr);
+}
+
+template<typename T>
+typename FrankensteinList<T>::Iterator FrankensteinList<T>::begin() {
+    return Iterator(head);
+}
+
+template<typename T>
+typename FrankensteinList<T>::Iterator FrankensteinList<T>::end() {
+    return Iterator(nullptr);
+}
+
+template<typename T>
+typename FrankensteinList<T>::Iterator FrankensteinList<T>::beginAscending() {
+    return Iterator(asc_head);
+}
+
+template<typename T>
+typename FrankensteinList<T>::Iterator FrankensteinList<T>::endAscending() {
+    return Iterator(desc_head);
+}
+
+template<typename T>
+FrankensteinList<T>::ConstIterator::ConstIterator(const Node<T> *node)
+    :ptr(node)
+{
+}
+
+template<typename T>
+const T& FrankensteinList<T>::ConstIterator::operator*() const {
+    if (!ptr) {
+        throw std::runtime_error("Iterator is not dereferencable.");
+    }
+    return ptr->val;
+}
+
+template<typename T>
+const T* FrankensteinList<T>::ConstIterator::operator->() const {
+    if (!ptr) {
+        throw std::runtime_error("Iterator is not dereferencable.");
+    }
+    return &(ptr->val);
+}
+
+template<typename T>
+typename FrankensteinList<T>::ConstIterator &FrankensteinList<T>::ConstIterator::operator++() {
+    ptr = ptr->next;
+    return *this;
+}
+
+template<typename T>
+typename FrankensteinList<T>::ConstIterator FrankensteinList<T>::ConstIterator::operator++(int) {
+    FrankensteinList<T>::ConstIterator tmp = *this;
+    ++(*this);
+    return tmp;
+}
+
+template<typename T>
+bool FrankensteinList<T>::ConstIterator::operator==(const FrankensteinList<T>::ConstIterator &oth) const {
+    return ptr == oth.ptr;
+}
+
+template<typename T>
+bool FrankensteinList<T>::ConstIterator::operator!=(const FrankensteinList<T>::ConstIterator &oth) const {
+    return ptr != oth.ptr;
+}
+
+template<typename T>
+typename FrankensteinList<T>::ConstIterator FrankensteinList<T>::cbegin() const {
+    return ConstIterator(head);
+}
+
+template<typename T>
+typename FrankensteinList<T>::ConstIterator FrankensteinList<T>::cend() const {
+    return ConstIterator(nullptr);
+}
+
+// Comparison operators
 // Equality operator
 template<typename T>
 bool operator==(const FrankensteinList<T>& first, const FrankensteinList<T>& second) {
@@ -403,10 +522,10 @@ bool operator==(const FrankensteinList<T>& first, const FrankensteinList<T>& sec
 }
 
 // Inequality operator
-template<typename T>
-bool operator!=(const FrankensteinList<T>& first, const FrankensteinList<T>& second) {
-    return !operator==(first, second);
-}
+//template<typename T>
+//bool operator!=(const FrankensteinList<T>& first, const FrankensteinList<T>& second) {
+//    return !(first == second);
+//}
 
 // Less than operator
 template<typename T>

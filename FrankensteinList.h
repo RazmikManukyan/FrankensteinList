@@ -45,6 +45,43 @@ public:
     // Friend function for output stream operator
     template<typename U>
     friend std::ostream& operator<<(std::ostream&, const FrankensteinList<U>&);
+
+    // Define an iterator class for FrankensteinList
+    class Iterator {
+    public:
+        Iterator(Node<T>*);
+
+        T& operator*();
+        T* operator->();
+        Iterator& operator++();
+        Iterator operator++(int);
+        bool operator==(const Iterator&);
+        bool operator!=(const Iterator&);
+    private:
+        Node<T> *ptr;
+    };
+
+    Iterator begin();
+    Iterator end();
+    Iterator beginAscending();
+    Iterator endAscending();
+
+    class ConstIterator{
+    public:
+        ConstIterator(const Node<T>*);
+
+        const T& operator*() const;
+        const T* operator->() const;
+        ConstIterator& operator++();
+        ConstIterator operator++(int);
+        bool operator==(const ConstIterator&) const;
+        bool operator!=(const ConstIterator&) const;
+    private:
+        const Node<T>* ptr;
+    };
+
+    ConstIterator cbegin() const ;
+    ConstIterator cend() const;
 private:
     Node<T>* head;// Pointer to the head of the list
     Node<T>* tail;// Pointer to the tail of the list
@@ -53,11 +90,12 @@ private:
     std::size_t size;// Current size of the list
 };
 
+
 // Comparison operators
 template<typename T>
 bool operator==(const FrankensteinList<T>&, const FrankensteinList<T>&);
-template<typename T>
-bool operator!=(const FrankensteinList<T>&, const FrankensteinList<T>&);
+//template<typename T>
+//bool operator!=(const FrankensteinList<T>&, const FrankensteinList<T>&);
 template<typename T>
 bool operator<(const FrankensteinList<T>&, const FrankensteinList<T>&);
 template<typename T>
